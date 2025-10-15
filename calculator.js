@@ -1,32 +1,39 @@
 //math operations
+
+
 function add(a, b){
     let result = (a + b)
     equation.textContent += result
     console.log(result)
+    retainResult(result)
 }
 
 function subtract(a, b){
     let result = (a - b)
     equation.textContent += result
     console.log(result)
+    retainResult(result)
 }
 
 function divide(a, b){
     let result = (a / b)
     equation.textContent += result
     console.log(result)
+    retainResult(result)
 }
 
 function multiply(a, b){
     let result = (a * b)
     equation.textContent += result
     console.log(result)
+    retainResult(result)
 }
 
 function exponentiate(a, b){
     let result = (a ** b)
     equation.textContent += result
     console.log(result)
+    retainResult(result)
 }
 
 function operate(a, o, b){
@@ -244,8 +251,55 @@ function updateDisplay(event){
     equation.textContent += event.target.value
     arr.push(event.target.value)
     console.log(arr)
+    if ((arr.length >= 4 && arr[arr.length-1] === "+") || 
+        (arr.length >= 4 && arr[arr.length-1] === "-") ||
+        (arr.length >= 4 && arr[arr.length-1] === "*") || 
+        (arr.length >= 4 && arr[arr.length-1] === "/") || 
+        (arr.length >= 4 && arr[arr.length-1] === "**")){ 
+    evaluateUponSecondOperand()
+    }
 }
 
+//keep result for further operations
+function retainResult(result){
+    arr = []
+    let numString = result.toString()
+    arr.push(numString)
+    console.log(arr, result)
+}
+
+//evaluate when the second operand (not including equals) is clicked
+function evaluateUponSecondOperand(){
+    let joinedNums = []
+    let currentNum = ""
+    for (let i = 0; i <= (arr.length - 1); i++){
+        if (arr[i] === "0" || 
+        arr[i] === "1" || arr[i] === "2" || 
+        arr[i] === "3" || arr[i] === "4" || 
+        arr[i] === "5" || arr[i] === "6" || 
+        arr[i] === "7" || arr[i] === "8" || 
+        arr[i] === "9" || arr[i] === "."){
+        currentNum += arr[i]
+        } else if (arr[i] === "+" || 
+        arr[i] === "+" || arr[i] === "-" || 
+        arr[i] === "/" || arr[i] === "*" || 
+        arr[i] === "**"){
+        joinedNums.push(currentNum)
+        joinedNums.push(arr[i])
+        currentNum = ""
+        }
+    }
+    joinedNums.push(currentNum)
+    console.log(joinedNums)
+    clearForEquation()
+    let numbered = joinedNums.map(Number);
+    let a = numbered[0];
+    let o = joinedNums[1];
+    let b = numbered[2];
+    operate(a, o, b)
+}
+
+//evaluate equation upon equals
 function evaluate(event){
     let joinedNums = []
     let currentNum = ""
@@ -275,6 +329,8 @@ function evaluate(event){
     let b = numbered[2];
     operate(a, o, b)
 }
+
+
 
 //clear just the display when equals is clicked so only the result displays
 function clearForEquation(){
