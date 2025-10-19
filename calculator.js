@@ -1,5 +1,102 @@
-//math operations
+//operations and results
+let arr = []
+let operatorsTyped = 0
+function updateDisplay(event){
+    equation.textContent += event.target.value
+    arr.push(event.target.value)
+    console.log(arr)
+    if (event.target.value === "+" || event.target.value === "-" ||
+        event.target.value === "/" || event.target.value === "*" ||
+        event.target.value === "**"){
+        let newOperator = event.target.value
+        console.log(newOperator)
+        operatorsTyped++
+        console.log(operatorsTyped)
+        checkForSecondOperator(newOperator)
+    }
+}
 
+
+function checkForSecondOperator(newOperator){
+    if (operatorsTyped >= 2){
+        evaluate()
+        appendNewOperator(newOperator)
+    }
+}
+
+function appendNewOperator(newOperator){
+    equation.textContent += newOperator
+    arr.push(newOperator)
+    if (newOperator){
+        operatorsTyped += 2
+        console.log(operatorsTyped)
+    }
+}
+
+function retainResult(result){
+    arr = []
+    let numString = result.toString()
+    let split = numString.split('')
+    arr = split.slice()
+}
+
+function evaluate(event){
+    operatorsTyped = 0
+    let joinedNums = []
+    let currentNum = ""
+    for (let i = 0; i <= arr.length; i++){
+        if (arr[i] === "0" || 
+        arr[i] === "1" || arr[i] === "2" || 
+        arr[i] === "3" || arr[i] === "4" || 
+        arr[i] === "5" || arr[i] === "6" || 
+        arr[i] === "7" || arr[i] === "8" || 
+        arr[i] === "9" || arr[i] === "."){
+        currentNum += arr[i]
+        } else if (arr[i] === "+" || 
+        arr[i] === "+" || arr[i] === "-" || 
+        arr[i] === "/" || arr[i] === "*" || 
+        arr[i] === "**"){
+        joinedNums.push(currentNum)
+        joinedNums.push(arr[i])
+        currentNum = ""
+        }
+    }
+    joinedNums.push(currentNum)
+    console.log(joinedNums)
+    clearForEquation()
+    let numbered = joinedNums.map(Number);
+    let a = numbered[0];
+    let o = joinedNums[1];
+    let b = numbered[2];
+    operate(a, o, b)
+}
+
+function clearForEquation(){
+    equation.textContent = ""
+    operatorsTyped = 0 
+}
+
+function clearAll(){
+    equation.textContent = ""
+    arr = []
+    operatorsTyped = 0 
+    console.log(arr)
+}
+
+function operate(a, o, b){
+        if (o === "+"){
+        add(a, b)
+        } else if (o === "-"){
+        subtract(a, b)
+        } else if (o === "/"){
+        divide(a, b)
+        } else if (o === "*"){
+        multiply(a, b)
+        } else if (o === "**"){
+        exponentiate(a, b)
+        }
+
+}
 
 function add(a, b){
     let result = (a + b)
@@ -34,21 +131,6 @@ function exponentiate(a, b){
     equation.textContent += result
     console.log(result)
     retainResult(result)
-}
-
-function operate(a, o, b){
-        if (o === "+"){
-        add(a, b)
-        } else if (o === "-"){
-        subtract(a, b)
-        } else if (o === "/"){
-        divide(a, b)
-        } else if (o === "*"){
-        multiply(a, b)
-        } else if (o === "**"){
-        exponentiate(a, b)
-        }
-
 }
 
 //display
@@ -114,7 +196,6 @@ equals.textContent = "="
 buttons.appendChild(equals)
 equals.addEventListener("click", evaluate)
 
-//numbers and others
 const one = document.createElement("button")
 one.style.color = "white" 
 one.style.backgroundColor = "blue"
@@ -245,101 +326,3 @@ equation.style.backgroundColor = "white"
 equation.style.width = "210px"
 equation.style.height = "50px"
 display.appendChild(equation)
-
-let arr = []
-function updateDisplay(event){
-    equation.textContent += event.target.value
-    arr.push(event.target.value)
-    console.log(arr)
-    if ((arr.length >= 4 && arr[arr.length-1] === "+") || 
-        (arr.length >= 4 && arr[arr.length-1] === "-") ||
-        (arr.length >= 4 && arr[arr.length-1] === "*") || 
-        (arr.length >= 4 && arr[arr.length-1] === "/") || 
-        (arr.length >= 4 && arr[arr.length-1] === "**")){ 
-    evaluateUponSecondOperand()
-    }
-}
-
-//keep result for further operations
-function retainResult(result){
-    arr = []
-    let numString = result.toString()
-    arr.push(numString)
-    console.log(arr, result)
-}
-
-//evaluate when the second operand (not including equals) is clicked
-function evaluateUponSecondOperand(){
-    let joinedNums = []
-    let currentNum = ""
-    for (let i = 0; i <= (arr.length - 1); i++){
-        if (arr[i] === "0" || 
-        arr[i] === "1" || arr[i] === "2" || 
-        arr[i] === "3" || arr[i] === "4" || 
-        arr[i] === "5" || arr[i] === "6" || 
-        arr[i] === "7" || arr[i] === "8" || 
-        arr[i] === "9" || arr[i] === "."){
-        currentNum += arr[i]
-        } else if (arr[i] === "+" || 
-        arr[i] === "+" || arr[i] === "-" || 
-        arr[i] === "/" || arr[i] === "*" || 
-        arr[i] === "**"){
-        joinedNums.push(currentNum)
-        joinedNums.push(arr[i])
-        currentNum = ""
-        }
-    }
-    joinedNums.push(currentNum)
-    console.log(joinedNums)
-    clearForEquation()
-    let numbered = joinedNums.map(Number);
-    let a = numbered[0];
-    let o = joinedNums[1];
-    let b = numbered[2];
-    operate(a, o, b)
-}
-
-//evaluate equation upon equals
-function evaluate(event){
-    let joinedNums = []
-    let currentNum = ""
-    for (let i = 0; i <= arr.length; i++){
-        if (arr[i] === "0" || 
-        arr[i] === "1" || arr[i] === "2" || 
-        arr[i] === "3" || arr[i] === "4" || 
-        arr[i] === "5" || arr[i] === "6" || 
-        arr[i] === "7" || arr[i] === "8" || 
-        arr[i] === "9" || arr[i] === "."){
-        currentNum += arr[i]
-        } else if (arr[i] === "+" || 
-        arr[i] === "+" || arr[i] === "-" || 
-        arr[i] === "/" || arr[i] === "*" || 
-        arr[i] === "**"){
-        joinedNums.push(currentNum)
-        joinedNums.push(arr[i])
-        currentNum = ""
-        }
-    }
-    joinedNums.push(currentNum)
-    console.log(joinedNums)
-    clearForEquation()
-    let numbered = joinedNums.map(Number);
-    let a = numbered[0];
-    let o = joinedNums[1];
-    let b = numbered[2];
-    operate(a, o, b)
-}
-
-
-
-//clear just the display when equals is clicked so only the result displays
-function clearForEquation(){
-    equation.textContent = ""
-}
-
-//clear the display and the array when clear is clicked
-function clearAll(){
-    equation.textContent = ""
-    arr = []
-    console.log(arr)
-}
