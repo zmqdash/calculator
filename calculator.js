@@ -1,4 +1,14 @@
-//operations and results
+//arithmetic
+
+function solveArithmetic(){
+    operatorsTyped = 0
+    buttons.removeChild(arithmetic)
+    buttons.appendChild(algebra)
+    buttons.removeChild(x)
+    buttons.removeChild(solve)
+    equals.addEventListener("click", evaluate)
+}
+
 let arr = []
 let operatorsTyped = 0
 function updateDisplay(event){
@@ -27,10 +37,8 @@ function checkForSecondOperator(newOperator){
 function appendNewOperator(newOperator){
     equation.textContent += newOperator
     arr.push(newOperator)
-    if (newOperator){
-        operatorsTyped += 2
-        console.log(operatorsTyped)
-    }
+    operatorsTyped += 2
+    console.log(operatorsTyped)
 }
 
 function retainResult(result){
@@ -74,13 +82,16 @@ function evaluate(event){
 function clearForEquation(){
     equation.textContent = ""
     operatorsTyped = 0 
+    solution = []
 }
 
 function clearAll(){
     equation.textContent = ""
     arr = []
     operatorsTyped = 0 
+    solution = []
     console.log(arr)
+    console.log(solution)
 }
 
 function operate(a, o, b){
@@ -133,7 +144,49 @@ function exponentiate(a, b){
     retainResult(result)
 }
 
+//basic algebra
+
+function solveAlgebra(){
+    document.addEventListener("keydown", (event) => {
+  if (event.key === "x") {
+    x.click();
+  }
+});
+    operatorsTyped -= Infinity
+    console.log(operatorsTyped)
+    buttons.removeChild(algebra)
+    buttons.appendChild(arithmetic)
+    buttons.appendChild(solve)
+    buttons.appendChild(x)
+    equals.removeEventListener("click", evaluate)
+    equals.addEventListener("click", updateAlg)
+    equals.value = "="
+}
+
+function updateAlg(event){
+    equation.textContent += event.target.value
+    arr.push(event.target.value)
+    console.log(arr)
+   
+}
+
+let solution = []
+function solveForX(event){
+    for (let i = 0; i <= arr.length; i++){
+        if (arr.includes("=")){
+            if (arr[i] === "x"){
+            solution.push(arr[i])
+            arr.splice(i, 1)
+            console.log(solution)
+            console.log(arr)
+        }
+        
+    }
+    }
+}
+
 //display
+
 
 const buttons = document.querySelector('.buttons');
 
@@ -146,6 +199,12 @@ plus.textContent = "+"
 plus.value = "+"
 buttons.appendChild(plus)
 plus.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "+" || (event.key === "=" && event.shiftKey)) {
+    plus.click();
+  }
+});
+
 
 const minus = document.createElement("button")
 minus.style.color = "white" 
@@ -156,6 +215,11 @@ minus.textContent = "-"
 minus.value = "-"
 buttons.appendChild(minus)
 minus.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "-") {
+    minus.click();
+  }
+});
 
 const division = document.createElement("button")
 division.style.color = "white" 
@@ -166,6 +230,11 @@ division.textContent = "÷"
 division.value = "/"
 buttons.appendChild(division)
 division.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "/") {
+    division.click();
+  }
+});
 
 const multiplication = document.createElement("button")
 multiplication.style.color = "white" 
@@ -176,6 +245,11 @@ multiplication.textContent = "×"
 multiplication.value = "*"
 buttons.appendChild(multiplication)
 multiplication.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "*") {
+    multiplication.click();
+  }
+});
 
 const power = document.createElement("button")
 power.style.color = "white" 
@@ -186,6 +260,11 @@ power.textContent = "^"
 power.value = "**"
 buttons.appendChild(power)
 power.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "^") {
+    power.click();
+  }
+});
 
 const equals = document.createElement("button")
 equals.style.color = "white" 
@@ -195,6 +274,12 @@ equals.style.height = "35px"
 equals.textContent = "="
 buttons.appendChild(equals)
 equals.addEventListener("click", evaluate)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "=") {
+    equals.click();
+  }
+});
+
 
 const one = document.createElement("button")
 one.style.color = "white" 
@@ -205,6 +290,11 @@ one.textContent = "1"
 one.value = "1" 
 buttons.appendChild(one)
 one.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "1") {
+    one.click();
+  }
+});
 
 const two = document.createElement("button")
 two.style.color = "white" 
@@ -215,6 +305,11 @@ two.textContent = "2"
 two.value = "2" 
 buttons.appendChild(two)
 two.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "2") {
+    two.click();
+  }
+});
 
 const three = document.createElement("button")
 three.style.color = "white" 
@@ -225,6 +320,11 @@ three.textContent = "3"
 three.value = "3" 
 buttons.appendChild(three)
 three.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "3") {
+    three.click();
+  }
+});
 
 const four = document.createElement("button")
 four.style.color = "white" 
@@ -235,6 +335,11 @@ four.textContent = "4"
 four.value = "4" 
 buttons.appendChild(four)
 four.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "4") {
+    four.click();
+  }
+});
 
 const five = document.createElement("button")
 five.style.color = "white" 
@@ -245,6 +350,11 @@ five.textContent = "5"
 five.value = "5" 
 buttons.appendChild(five)
 five.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "5") {
+    five.click();
+  }
+});
 
 const six = document.createElement("button")
 six.style.color = "white" 
@@ -255,6 +365,11 @@ six.textContent = "6"
 six.value = "6" 
 buttons.appendChild(six)
 six.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "6") {
+    six.click();
+  }
+});
 
 const seven = document.createElement("button")
 seven.style.color = "white" 
@@ -265,6 +380,12 @@ seven.textContent = "7"
 seven.value = "7" 
 buttons.appendChild(seven)
 seven.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "7") {
+    seven.click();
+  }
+});
+
 
 const eight = document.createElement("button")
 eight.style.color = "white" 
@@ -275,6 +396,11 @@ eight.textContent = "8"
 eight.value = "8" 
 buttons.appendChild(eight)
 eight.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "8") {
+    eight.click();
+  }
+});
 
 const nine = document.createElement("button")
 nine.style.color = "white" 
@@ -285,6 +411,11 @@ nine.textContent = "9"
 nine.value = "9" 
 buttons.appendChild(nine)
 nine.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "9") {
+    nine.click();
+  }
+});
 
 const zero = document.createElement("button")
 zero.style.color = "white" 
@@ -295,6 +426,11 @@ zero.textContent = "0"
 zero.value = "0" 
 buttons.appendChild(zero)
 zero.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "0") {
+    zero.click();
+  }
+});
 
 const decimal = document.createElement("button")
 decimal.style.color = "white" 
@@ -305,6 +441,11 @@ decimal.textContent = "."
 decimal.value = "." 
 buttons.appendChild(decimal)
 decimal.addEventListener("click", updateDisplay)
+document.addEventListener("keydown", (event) => {
+  if (event.key === ".") {
+    decimal.click();
+  }
+});
 
 const clear = document.createElement("button")
 clear.style.color = "white" 
@@ -314,6 +455,43 @@ clear.style.height = "35px"
 clear.textContent = "cl" 
 buttons.appendChild(clear)
 clear.addEventListener("click", clearAll)
+
+const algebra = document.createElement("button")
+algebra.style.color = "white"
+algebra.style.backgroundColor = "purple"
+algebra.style.width = "210px"
+algebra.style.height = "45px"
+algebra.textContent = "algebra"
+buttons.appendChild(algebra)
+algebra.addEventListener("click", solveAlgebra)
+
+const arithmetic = document.createElement("button")
+arithmetic.style.color = "white"
+arithmetic.style.backgroundColor = "purple"
+arithmetic.style.width = "105px"
+arithmetic.style.height = "45px"
+arithmetic.textContent = "arithmetic"
+arithmetic.addEventListener("click", solveArithmetic)
+
+const x = document.createElement("button")
+x.style.color = "white"
+x.style.backgroundColor = "purple"
+x.style.width = "35px"
+x.style.height = "45px"
+x.textContent = "x"
+x.value = "x"
+x.addEventListener("click", updateAlg)
+
+
+const solve = document.createElement("button")
+solve.style.color = "white"
+solve.style.backgroundColor = "purple"
+solve.style.width = "70px"
+solve.style.height = "45px"
+solve.textContent = "solve"
+solve.addEventListener("click", solveForX)
+
+
 
 //display of numbers
 
@@ -326,3 +504,4 @@ equation.style.backgroundColor = "white"
 equation.style.width = "210px"
 equation.style.height = "50px"
 display.appendChild(equation)
+
