@@ -1,12 +1,54 @@
 //arithmetic
 
 function solveArithmetic(){
+    joinedNums = []
+    arr = []
+    solution.length = 0
+    currentNum = ""
     operatorsTyped = 0
+    algOperatorsTyped -= Infinity
+    document.removeEventListener("keydown", (event) => {
+  if (event.key === "x") {
+    x.click();
+  }
+});
     buttons.removeChild(arithmetic)
     buttons.appendChild(algebra)
     buttons.removeChild(x)
     buttons.removeChild(solve)
     equals.addEventListener("click", evaluate)
+    one.removeEventListener("click", updateAlg)
+    one.addEventListener("click", updateDisplay)
+    two.removeEventListener("click", updateAlg)
+    two.addEventListener("click", updateDisplay)
+    three.removeEventListener("click", updateAlg)
+    three.addEventListener("click", updateDisplay)
+    four.removeEventListener("click", updateAlg)
+    four.addEventListener("click", updateDisplay)
+    five.removeEventListener("click", updateAlg)
+    five.addEventListener("click", updateDisplay)
+    six.removeEventListener("click", updateAlg)
+    six.addEventListener("click", updateDisplay)
+    seven.removeEventListener("click", updateAlg)
+    seven.addEventListener("click", updateDisplay)
+    eight.removeEventListener("click", updateAlg)
+    eight.addEventListener("click", updateDisplay)
+    nine.removeEventListener("click", updateAlg)
+    nine.addEventListener("click", updateDisplay)
+    zero.removeEventListener("click", updateAlg)
+    zero.addEventListener("click", updateDisplay)
+    decimal.removeEventListener("click", updateAlg)
+    decimal.addEventListener("click", updateDisplay)
+    plus.removeEventListener("click", updateAlg)
+    plus.addEventListener("click", updateDisplay)
+    minus.removeEventListener("click", updateAlg)
+    minus.addEventListener("click", updateDisplay)
+    division.removeEventListener("click", updateAlg)
+    division.addEventListener("click", updateDisplay)
+    multiplication.removeEventListener("click", updateAlg)
+    multiplication.addEventListener("click", updateDisplay)
+    power.removeEventListener("click", updateAlg)
+    power.addEventListener("click", updateDisplay)
 }
 
 let arr = []
@@ -48,7 +90,7 @@ function retainResult(result){
     arr = split.slice()
 }
 
-function evaluate(event){
+function evaluate(){
     operatorsTyped = 0
     let joinedNums = []
     let currentNum = ""
@@ -71,18 +113,18 @@ function evaluate(event){
     }
     joinedNums.push(currentNum)
     console.log(joinedNums)
-    clearForEquation()
     let numbered = joinedNums.map(Number);
+    clearForEquation()
     let a = numbered[0];
     let o = joinedNums[1];
     let b = numbered[2];
     operate(a, o, b)
+  
 }
 
 function clearForEquation(){
     equation.textContent = ""
     operatorsTyped = 0 
-    solution = []
 }
 
 function clearAll(){
@@ -96,7 +138,7 @@ function clearAll(){
 
 function operate(a, o, b){
         if (o === "+"){
-        add(a, b)
+        add(a, b, solution)
         } else if (o === "-"){
         subtract(a, b)
         } else if (o === "/"){
@@ -111,37 +153,66 @@ function operate(a, o, b){
 
 function add(a, b){
     let result = (a + b)
+    //algebra solutions:
+    if (solution[0] === "x"){
+    appendToX(solution, result)
+    } else {
+    //arithmetic:
     equation.textContent += result
     console.log(result)
-    retainResult(result)
+    retainResult(result)}
 }
 
 function subtract(a, b){
     let result = (a - b)
+    //algebra solutions:
+    if (solution[0] === "x"){
+    appendToX(solution, result)
+    } else {
+    //arithmetic:
     equation.textContent += result
     console.log(result)
-    retainResult(result)
+    retainResult(result)}
+    
 }
 
 function divide(a, b){
     let result = (a / b)
+    //algebra solutions:
+    if (solution[0] === "x"){
+    appendToX(solution, result)
+    } else {
+    //arithmetic:
     equation.textContent += result
     console.log(result)
-    retainResult(result)
+    retainResult(result)}
+
 }
 
 function multiply(a, b){
     let result = (a * b)
+    //algebra solutions:
+    if (solution[0] === "x"){
+    appendToX(solution, result)
+    } else {
+    //arithmetic:
     equation.textContent += result
     console.log(result)
-    retainResult(result)
+    retainResult(result)}
+
 }
 
 function exponentiate(a, b){
     let result = (a ** b)
+    //algebra solutions:
+    if (solution[0] === "x"){
+    appendToX(solution, result)
+    } else {
+    //arithmetic:
     equation.textContent += result
     console.log(result)
-    retainResult(result)
+    retainResult(result)}
+
 }
 
 //basic algebra
@@ -152,6 +223,7 @@ function solveAlgebra(){
     x.click();
   }
 });
+    algOperatorsTyped = 0
     operatorsTyped -= Infinity
     console.log(operatorsTyped)
     buttons.removeChild(algebra)
@@ -161,29 +233,106 @@ function solveAlgebra(){
     equals.removeEventListener("click", evaluate)
     equals.addEventListener("click", updateAlg)
     equals.value = "="
+    one.removeEventListener("click", updateDisplay)
+    one.addEventListener("click", updateAlg)
+    two.removeEventListener("click", updateDisplay)
+    two.addEventListener("click", updateAlg)
+    three.removeEventListener("click", updateDisplay)
+    three.addEventListener("click", updateAlg)
+    four.removeEventListener("click", updateDisplay)
+    four.addEventListener("click", updateAlg)
+    five.removeEventListener("click", updateDisplay)
+    five.addEventListener("click", updateAlg)
+    six.removeEventListener("click", updateDisplay)
+    six.addEventListener("click", updateAlg)
+    seven.removeEventListener("click", updateDisplay)
+    seven.addEventListener("click", updateAlg)
+    eight.removeEventListener("click", updateDisplay)
+    eight.addEventListener("click", updateAlg)
+    nine.removeEventListener("click", updateDisplay)
+    nine.addEventListener("click", updateAlg)
+    zero.removeEventListener("click", updateDisplay)
+    zero.addEventListener("click", updateAlg)
+    decimal.removeEventListener("click", updateDisplay)
+    decimal.addEventListener("click", updateAlg)
+    plus.removeEventListener("click", updateDisplay)
+    plus.addEventListener("click", updateAlg)
+    minus.removeEventListener("click", updateDisplay)
+    minus.addEventListener("click", updateAlg)
+    division.removeEventListener("click", updateDisplay)
+    division.addEventListener("click", updateAlg)
+    multiplication.removeEventListener("click", updateDisplay)
+    multiplication.addEventListener("click", updateAlg)
+    power.removeEventListener("click", updateDisplay)
+    power.addEventListener("click", updateAlg)
 }
+
+
+let algOperatorsTyped = 0
+let numericOperand = []
 
 function updateAlg(event){
-    equation.textContent += event.target.value
-    arr.push(event.target.value)
-    console.log(arr)
-   
+  equation.textContent += event.target.value
+  arr.push(event.target.value);
+    if (event.target.value === "+" || event.target.value === "-" ||
+    event.target.value === "/" || event.target.value === "*" ||
+    event.target.value === "**" || event.target.value === "="){
+      for (let i = 0; i <= arr.length; i++){
+        if (arr[i] === "1" || arr[i] === "2" || arr[i] === "3" ||
+            arr[i] === "4" || arr[i] === "5" || arr[i] === "6" || 
+            arr[i] === "7" || arr[i] === "8" || arr[i] === "9" || 
+            arr[i] === "0" || arr[i] === ".") {
+              numericOperand = arr.splice(i, 1)
+              console.log(numericOperand)
+      }
+    }
+}
 }
 
-let solution = []
-function solveForX(event){
-    for (let i = 0; i <= arr.length; i++){
-        if (arr.includes("=")){
-            if (arr[i] === "x"){
-            solution.push(arr[i])
-            arr.splice(i, 1)
-            console.log(solution)
-            console.log(arr)
-        }
-        
+let solution = [];
+function solveForX(event) {
+  for (let i = arr.length - 1; i >= 0; i--) {
+    if (arr[i] === "=") {
+        arr.splice(i, 1)
+    }
+    else if (arr[i] === "x") {
+        solution.push(arr[i]);
+        solution.push("=");
+        arr.splice(i, 1);
+    }
+    else if (arr[i] === "+") {
+        arr[i] = "-"
+        const item = arr.splice(i, 1)[0];
+        arr.push(item);
+    }
+    else if (arr[i] === "-") {
+        arr[i] = "+"
+        const item = arr.splice(i, 1)[0];
+        arr.push(item);
+    }
+    else if (arr[i] === "*") {
+        arr[i] = "/"
+        const item = arr.splice(i, 1)[0];
+        arr.push(item);
+    }
+    else if (arr[i] === "/") {
+        arr[i] = "*"
+        const item = arr.splice(i, 1)[0];
+        arr.push(item);
     }
     }
-}
+    arr.push(numericOperand[0])
+    evaluate()
+    
+  }
+
+function appendToX(solution, result){
+      solution.push(result)
+      console.log(solution)
+      xEquals = solution.join('')
+      equation.textContent = xEquals
+    }
+
 
 //display
 
