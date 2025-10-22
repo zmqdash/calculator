@@ -7,6 +7,7 @@ function solveArithmetic(){
     currentNum = ""
     operatorsTyped = 0
     algOperatorsTyped -= Infinity
+    x.removeEventListener("click", updateAlg)
     document.removeEventListener("keydown", (event) => {
   if (event.key === "x") {
     x.click();
@@ -16,6 +17,8 @@ function solveArithmetic(){
     buttons.appendChild(algebra)
     buttons.removeChild(x)
     buttons.removeChild(solve)
+    equals.value = ""
+    equals.removeEventListener("click", updateAlg)
     equals.addEventListener("click", evaluate)
     one.removeEventListener("click", updateAlg)
     one.addEventListener("click", updateDisplay)
@@ -218,11 +221,7 @@ function exponentiate(a, b){
 //basic algebra
 
 function solveAlgebra(){
-    document.addEventListener("keydown", (event) => {
-  if (event.key === "x") {
-    x.click();
-  }
-});
+    
     algOperatorsTyped = 0
     operatorsTyped -= Infinity
     console.log(operatorsTyped)
@@ -233,6 +232,12 @@ function solveAlgebra(){
     equals.removeEventListener("click", evaluate)
     equals.addEventListener("click", updateAlg)
     equals.value = "="
+    x.addEventListener("click", updateAlg)
+    document.addEventListener("keydown", (event) => {
+  if (event.key === "x") {
+    x.click();
+  }
+});
     one.removeEventListener("click", updateDisplay)
     one.addEventListener("click", updateAlg)
     two.removeEventListener("click", updateDisplay)
@@ -629,7 +634,6 @@ x.style.width = "35px"
 x.style.height = "45px"
 x.textContent = "x"
 x.value = "x"
-x.addEventListener("click", updateAlg)
 
 
 const solve = document.createElement("button")
