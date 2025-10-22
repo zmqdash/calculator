@@ -8,11 +8,6 @@ function solveArithmetic(){
     operatorsTyped = 0
     algOperatorsTyped -= Infinity
     x.removeEventListener("click", updateAlg)
-    document.removeEventListener("keydown", (event) => {
-  if (event.key === "x") {
-    x.click();
-  }
-});
     buttons.removeChild(arithmetic)
     buttons.appendChild(algebra)
     buttons.removeChild(x)
@@ -233,11 +228,6 @@ function solveAlgebra(){
     equals.addEventListener("click", updateAlg)
     equals.value = "="
     x.addEventListener("click", updateAlg)
-    document.addEventListener("keydown", (event) => {
-  if (event.key === "x") {
-    x.click();
-  }
-});
     one.removeEventListener("click", updateDisplay)
     one.addEventListener("click", updateAlg)
     two.removeEventListener("click", updateDisplay)
